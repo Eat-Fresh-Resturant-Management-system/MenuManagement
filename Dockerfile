@@ -14,14 +14,14 @@ WORKDIR /src
 
 COPY ["MenuManagement/MenuManagement.csproj", "."]
 
-RUN dotnet restore "MenuManagement.csproj"
+RUN dotnet restore "MenuManagement/MenuManagement.csproj"
 
 COPY . .
 WORKDIR "/src/"	
-RUN dotnet build "MenuManagement.csproj" -c Release  
+RUN dotnet build "MenuManagement/MenuManagement.csproj" -c Release  
 
 FROM build AS publish
-RUN dotnet publish "MenuManagement.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "MenuManagement/MenuManagement.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
