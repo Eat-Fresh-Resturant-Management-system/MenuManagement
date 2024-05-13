@@ -14,7 +14,7 @@ WORKDIR /src
 
 COPY ["MenuManagement/MenuManagement.csproj", "."]
 
-RUN dotnet restore "MenuManagement.csproj"
+RUN dotnet restore "eatfresh.menumanagement/MenuManagement/MenuManagement.csproj"
 
 COPY . .
 WORKDIR "/src/"	
