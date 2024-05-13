@@ -1,0 +1,55 @@
+﻿version: '3.8'
+networks:
+  EatFresh_network:
+    driver: bridge
+
+services:
+  MenuManagement:
+    image: menuimage
+    depends_on:
+      - db-MenuManagement
+      - rabbitmq
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5136:5136"
+    environment:
+      ASPNETCORE_ENVIRONMENT: 'Development'
+      CONNECTION_STRING: 'Server=db-MenuManagement,1433;Database=resturantDBB25;User=sa;Password=<YourStrong@Passw0rd>;TrustServerCertificate=True'
+      PRODUCT_CATALOG_SERVICE_URI: 'http://productcatalog:5200/recommendation'
+    networks:
+      - EatFresh_network
+    volumes:
+      - ~/.vsdbg:/remote_debugger:rw
+
+  db-MenuManagement:
+    image: mcr.microsoft.com/mssql/server
+    user: root
+    volumes:
+      - MenuManagement:/var/opt/mssql/data
+    ports:
+      - "8002:1433"
+    environment:
+      SA_PASSWORD: "<YourStrong@Passw0rd>"
+      ACCEPT_EULA: "Y"
+    networks:
+      - EatFresh_network
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    restart: always
+    ports:
+      - "5672:5672"  # RabbitMQ port
+      - "15672:15672"  # RabbitMQ management UI port
+    environment:
+      RABBITMQ_DEFAULT_USERNAME: guest
+      RABBITMQ_DEFAULT_PASSWORD: guest
+    networks:
+      - EatFresh_network
+
+
+volumes:
+  MenuManagement:
+    name: MenuImage
