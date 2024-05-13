@@ -12,7 +12,7 @@ USER appuser
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
-COPY ["MenuManagement.csproj", "."]
+COPY ["MenuManagement/MenuManagement.csproj", "."]
 
 RUN dotnet restore "MenuManagement.csproj"
 
