@@ -37,7 +37,7 @@ ENV ASPNETCORE_URLS=http://+:5136
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 COPY ["/MenuManagement/MenuManagement.csproj", "./"]
-RUN dotnet restore "MenuManagement.csproj"
+RUN dotnet restore "/MenuManagement/MenuManagement.csproj"
 COPY MenuManagement/ .
 WORKDIR "/src/"
 RUN dotnet build "MenuManagement.csproj" -c Release  
