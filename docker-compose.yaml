@@ -41,14 +41,13 @@ services:
     image: rabbitmq:3-management
     restart: always
     ports:
-      - "5672:5672"  # RabbitMQ port
-      - "15672:15672"  # RabbitMQ management UI port
+      - "5672:5672" # RabbitMQ port
+      - "15672:15672" # RabbitMQ management UI port
     environment:
       RABBITMQ_DEFAULT_USERNAME: guest
       RABBITMQ_DEFAULT_PASSWORD: guest
     networks:
       - EatFresh_network
-
 
 volumes:
   MenuManagement:
