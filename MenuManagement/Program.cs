@@ -74,6 +74,7 @@ app.UseSwaggerUI(c =>
     c.RoutePrefix = "/grp-13/webmenuapi/StudyHealthAPI/swagger";
 });
 
+app.UsePathBase("/grp-13/webmenuapi");
 // app.UseSwagger();
 // app.UseSwaggerUI();
 
