@@ -10,7 +10,7 @@ using WAOProjectMenu.Models;
 
 namespace OrderProcessing.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("grp-13/webmenuapi/api/[controller]")]
     [ApiController]
     public class TableDatasController : ControllerBase
     {

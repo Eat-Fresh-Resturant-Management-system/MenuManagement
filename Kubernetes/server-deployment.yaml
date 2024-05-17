@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: webapi
-        image: registry.gitlab.au.dk/wao-exercises1/eatfresh/eatfresh.menumanagement:v.0.0.6
+        image: registry.gitlab.au.dk/wao-exercises1/eatfresh/eatfresh.menumanagement:v.0.0.7
         ports:
         - containerPort: 5136
         env:
