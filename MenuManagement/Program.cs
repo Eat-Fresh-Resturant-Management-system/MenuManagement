@@ -67,6 +67,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.MapGet("/", async context =>
+{
+    context.Response.Redirect("/swagger/index.html");
+});
 
 app.UseHttpsRedirection();
 app.UseCors();
