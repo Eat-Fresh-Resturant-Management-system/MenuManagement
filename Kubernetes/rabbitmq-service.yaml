@@ -1,11 +1,15 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: rabbitmq
+  name: rabbitmq-service
   namespace: eatfresh
 spec:
-  ports:
-  - port: 5672
-    targetPort: 5672
   selector:
-    app: rabbitmq
+    app: rabbitmq-pod
+  ports:
+    - name: amqp
+      protocol: TCP
+      port: 5672
+    - name: management
+      protocol: TCP
+      port: 15672
