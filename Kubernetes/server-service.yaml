@@ -9,10 +9,6 @@ spec:
   ports:
     - name: port1
       protocol: TCP
-      port: 5280
-      targetPort: 5280
-    - name: port2
-      protocol: TCP
-      port: 7004
-      targetPort: 7004
+      port: 80
+      targetPort: 5136
   type: ClusterIP

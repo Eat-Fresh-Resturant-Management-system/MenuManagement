@@ -66,12 +66,20 @@ if (app.Environment.IsDevelopment())
     //app.UseSwagger();
     //app.UseSwaggerUI();
 }
+
 app.UseSwagger();
-app.UseSwaggerUI();
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Server v1");
+    c.RoutePrefix = "/grp-13/webmenuapi/StudyHealthAPI/swagger";
+});
+
+// app.UseSwagger();
+// app.UseSwaggerUI();
 
 app.MapGet("/", async context =>
 {
-    context.Response.Redirect("/swagger/index.html");
+    context.Response.Redirect("/grp-13/webmenuapi/swagger/index.html");
 });
 
 app.UseHttpsRedirection();
