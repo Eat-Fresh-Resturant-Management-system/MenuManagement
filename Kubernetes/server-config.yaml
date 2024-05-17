@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: server-config
+  namespace: eatfresh
+data:
+  appsettings.json: |-
+    {
+      "ConnectionStrings": {
+        "DefaultConnection": "Server=sql-service,1433;Database=resturantDBB25;User=sa;Password=<YourStrong@Passw0rd>;TrustServerCertificate=True"
+      },
+      "Logging": {
+        "LogLevel": {
+          "Default": "Information",
+          "Microsoft.AspNetCore": "Warning"
+        }
+      },
+      "AllowedHosts": "*"
+    }
+  rel_url_path: "/grp-13/webmenuapi"

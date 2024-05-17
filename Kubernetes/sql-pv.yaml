@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: sql-volume-pv
+spec:
+  storageClassName: "local-path"
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Recycle
+  claimRef:
+    name: sql-pvc
+    namespace: eatfresh
+  hostPath:
+    path: "~/slet/"

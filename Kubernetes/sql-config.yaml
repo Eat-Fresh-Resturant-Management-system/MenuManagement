@@ -1,0 +1,8 @@
+# apiVersion: v1
+# kind: ConfigMap
+# metadata:
+#   name: sql-config
+#   namespace: eatfresh
+# data:
+#   dbname: model
+#   hostname: sql-service

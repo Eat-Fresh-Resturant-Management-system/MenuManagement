@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sql-deployment
+  namespace: eatfresh
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sqlserver
+  template:
+    metadata:
+      labels:
+        app: sqlserver
+    spec:
+      containers:
+      - name: sqlserver
+        image: mcr.microsoft.com/mssql/server:2019-latest
+        ports:
+        - containerPort: 1433
+        env:
+        - name: MSSQL_DATABASE
+          value: "master"
+        - name: ACCEPT_EULA
+          valueFrom:
+            secretKeyRef:
+              name: sql-secret
+              key: ACCEPT_EULA
+        - name: MSSQL_SA_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: sql-secret
+              key: MSSQL_SA_PASSWORD
+        resources:
+          requests:
+            cpu: "200m"
+            memory: "1Gi"
+          limits:
+            cpu: "1"
+            memory: "2Gi"
+        volumeMounts:
+        - mountPath: /var/opt/mssql/data
+          name: sql-persistent-storage
+      volumes:
+      - name: sql-persistent-storage
+        persistentVolumeClaim:
+          claimName: sql-pvc

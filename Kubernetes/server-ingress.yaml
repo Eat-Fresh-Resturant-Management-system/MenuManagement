@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: server-ingress
+  namespace: eatfresh
+spec:
+  ingressClassName: "nginx"
+  rules:
+  - host: project.orbit.au.dk
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/2024f37/test"
+        backend:
+          service:
+            name: server-service
+            port:
+              number: 5280

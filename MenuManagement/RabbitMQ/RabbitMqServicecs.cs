@@ -23,7 +23,7 @@ namespace MenuManagement.RabbitMQS
         {
             var factory = new ConnectionFactory
             {
-                Uri = new Uri("amqp://guest:guest@rabbitmq:5672/"),
+                Uri = new Uri("amqp://guest:guest@rabbitmq.eatfresh.svc.cluster.local:5672/"),
                 DispatchConsumersAsync = true,
             };
 
