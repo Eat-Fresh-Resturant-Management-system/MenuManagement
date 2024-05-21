@@ -4,9 +4,9 @@ using MenuManagement.Data;
 using System.Reflection;
 using System.Text;
 using MenuManagement.Controllers;
-using MenuManagement.RabbitMQS;
-using RabbitMQ.Client;
-using RabbitMQ.Client.Events;
+// using MenuManagement.RabbitMQS;
+// using RabbitMQ.Client;
+// using RabbitMQ.Client.Events;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,8 +22,8 @@ builder.Services.AddDbContext<MenuDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
-builder.Services.AddSingleton<IRabbitMQ, RabbitMQUnti>();
-builder.Services.AddHostedService<RabbitMqService>();
+// builder.Services.AddSingleton<IRabbitMQ, RabbitMQUnti>();
+// builder.Services.AddHostedService<RabbitMqService>();
 
 builder.Services.AddAuthentication(options =>
 {

@@ -33,11 +33,11 @@ spec:
               key: MSSQL_SA_PASSWORD
         resources:
           requests:
-            cpu: "100m"
-            memory: "128Mi"
+            cpu: "250m"
+            memory: "1Gi"
           limits:
-            cpu: "200m"
-            memory: "512Mi"
+            cpu: "500m"
+            memory: "2Gi"
         volumeMounts:
         - mountPath: /var/opt/mssql/data
           name: sql-persistent-storage

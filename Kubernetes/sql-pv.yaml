@@ -5,7 +5,7 @@ metadata:
 spec:
   storageClassName: "local-path"
   capacity:
-    storage: 512Mi
+    storage: 900Mi
   accessModes:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Recycle
