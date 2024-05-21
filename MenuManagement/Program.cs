@@ -4,6 +4,7 @@ using MenuManagement.Data;
 using System.Reflection;
 using System.Text;
 using MenuManagement.Controllers;
+using Server.Data;
 // using MenuManagement.RabbitMQS;
 // using RabbitMQ.Client;
 // using RabbitMQ.Client.Events;
@@ -91,5 +92,21 @@ app.UseAuthorization();
 
 
 app.MapControllers();
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<MenuDbContext>();
+    if (context != null)
+    {
+        SeedData.Seed(context);
+
+    }
+    else
+    {
+        throw new Exception("Cant reach StudyHealthContextDB");
+    }
+
+}
 
 app.Run();
