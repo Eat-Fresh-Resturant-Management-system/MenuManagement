@@ -17,6 +17,6 @@ spec:
         path: "/grp-13/webmenuapi(/|$)(.*)"
         backend:
           service:
-            name: server-service
+            name: menu-service
             port:
               number: 80
