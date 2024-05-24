@@ -1,6 +1,4 @@
-using MenuManagement.Data;
-
-namespace Server.Data;
+namespace MenuManagement.Data;
 
 public class SeedData
 {
