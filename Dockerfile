@@ -11,7 +11,7 @@ USER appuser
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
-COPY ["/MenuManagement/MenuManagement.csproj", "./"]
+COPY ["/eatfresh.menumanagement/MenuManagement/MenuManagement.csproj", "./"]
 RUN dotnet restore "MenuManagement.csproj"
 COPY MenuManagement/ .
 WORKDIR "/src/"
