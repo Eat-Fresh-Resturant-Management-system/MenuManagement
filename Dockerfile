@@ -11,7 +11,8 @@ USER appuser
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 COPY ["MenuManagement/MenuManagement.csproj", "MenuManagement/"]
-RUN dotnet restore "MenuManagement/MenuManagement.csproj" --no-cache
+COPY ["WAOProjectMenu.sln", "./"]
+RUN dotnet restore "MenuManagement/MenuManagement.csproj"
 COPY . .
 WORKDIR "/src/MenuManagement"
 RUN dotnet build "MenuManagement.csproj" -c Release -o /app/build
