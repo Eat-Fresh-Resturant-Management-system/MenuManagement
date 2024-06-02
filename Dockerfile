@@ -12,7 +12,7 @@ USER appuser
 
 # Build stage
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-RUN echo pwd
+echo pwd
 WORKDIR /src
 RUN echo pwd
 COPY ["/eatfresh.menumanagement/MenuManagement/MenuManagement.csproj", "./"]
