@@ -1,29 +1,26 @@
-# Use the official .NET 8 SDK image to build the application
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-WORKDIR /src
-
-# Copy the solution and project files
-COPY WAOProjectMenu.sln .
-COPY MenuManagement/MenuManagement.csproj MenuManagement/
-
-# Restore dependencies
-RUN dotnet restore MenuManagement/MenuManagement.csproj
-
-# Copy the remaining files and build the application
-COPY . .
-WORKDIR /src/MenuManagement
-RUN dotnet build MenuManagement.csproj -c Release -o /app/build
-
-# Publish the application
-RUN dotnet publish MenuManagement.csproj -c Release -o /app/publish
-
-# Use the official .NET runtime image to run the application
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
-COPY --from=build /app/publish .
-
-# Expose the port the application runs on
 EXPOSE 5136
 
-# Define the entry point for the application
+ENV ASPNETCORE_URLS=http://+:5136
+
+# Creates a non-root user with an explicit UID and adds permission to access the /app folder
+# For more info, please refer to https://aka.ms/vscode-docker-dotnet-configure-containers
+RUN adduser -u 5678 --disabled-password --gecos "" appuser && chown -R appuser /app
+USER appuser
+
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+WORKDIR /src
+COPY ["MenuManagement/MenuManagement.csproj", "./"]
+RUN dotnet restore "MenuManagement.csproj"
+COPY MenuManagement/ .
+WORKDIR "/src/"
+RUN dotnet build "MenuManagement.csproj" -c Release
+
+FROM build AS publish
+RUN dotnet publish "MenuManagement.csproj" -c Release -o /app/publish /p:UseAppHost=false
+
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "MenuManagement.dll"]
