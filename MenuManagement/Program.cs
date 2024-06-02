@@ -17,6 +17,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 // Remove the duplicate line below
+
 // builder.Services.AddControllersWithViews();
 builder.Services.AddCors();
 builder.Services.AddDbContext<MenuDbContext>(options =>
@@ -64,25 +65,13 @@ if (app.Environment.IsDevelopment())
     using var scope = app.Services.CreateScope();
     var db = scope.ServiceProvider.GetRequiredService<MenuDbContext>();
     db.Database.EnsureCreated();
-    //app.UseSwagger();
-    //app.UseSwaggerUI();
+
 }
 
 app.UseSwagger();
-// app.UseSwaggerUI(c =>
-// {
-//     c.SwaggerEndpoint("/swagger/v1/swagger.json", "Server v1");
-//     c.RoutePrefix = "/grp-13/webmenuapi/StudyHealthAPI/swagger";
-// });
 
-// app.UsePathBase("/grp-13/webmenuapi");
 app.UseSwagger();
 app.UseSwaggerUI();
-
-// app.MapGet("/", async context =>
-// {
-//     context.Response.Redirect("/grp-13/webmenuapi/swagger/index.html");
-// });
 
 app.UseHttpsRedirection();
 app.UseCors();
