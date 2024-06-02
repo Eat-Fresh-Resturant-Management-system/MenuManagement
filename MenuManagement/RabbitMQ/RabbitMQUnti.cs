@@ -17,12 +17,12 @@ namespace MenuManagement.RabbitMQS
     public class RabbitMQUnti : IRabbitMQ
     {
         private readonly IServiceScopeFactory _serviceScopeFactory;
-       // private readonly MenuDbContext _context;
+        // private readonly MenuDbContext _context;
 
-        public RabbitMQUnti( IServiceScopeFactory serviceScopeFactory)
+        public RabbitMQUnti(IServiceScopeFactory serviceScopeFactory)
         {
             _serviceScopeFactory = serviceScopeFactory;
-       //     _context = context;
+            //     _context = context;
         }
 
         public async Task ResTable(IModel channel, string rout, CancellationToken cancellationToken)
@@ -57,16 +57,16 @@ namespace MenuManagement.RabbitMQS
 
                             if (int.TryParse(messageparts[0], out int tabelId))
                             {
-                                var putuser = await dbContext.TableDatas.FindAsync(tabelId);
-                                if (putuser != null)
+                                var tablemessage = await dbContext.TableDatas.FindAsync(tabelId);
+                                if (tablemessage != null)
                                 {
-                                    if (putuser.IsAvailable != null)
+                                    if (tablemessage.IsAvailable != null)
                                     {
-                                        putuser.IsAvailable = messageparts[1] ?? putuser.IsAvailable;
+                                        tablemessage.IsAvailable = messageparts[1] ?? tablemessage.IsAvailable;
                                     }
                                     else
                                     {
-                                        putuser.IsAvailable = messageparts[1];
+                                        tablemessage.IsAvailable = messageparts[1];
                                     }
 
                                     await dbContext.SaveChangesAsync(cancellationToken);
