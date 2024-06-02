@@ -12,16 +12,12 @@ USER appuser
 
 # Build stage
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-RUN echo "Current directory before WORKDIR /src" && pwd && ls -la
 WORKDIR /src
 RUN pwd
-COPY ["/eatfresh.menumanagement/MenuManagement/MenuManagement.csproj", "./"]
-RUN echo "Current directory after copying csproj" && pwd && ls -la
+COPY ["/MenuManagement/MenuManagement.csproj", "./"]
 RUN dotnet restore "MenuManagement.csproj"
 COPY MenuManagement/ .
-RUN echo "Current directory after copying all files" && pwd && ls -la
 WORKDIR "/src/"
-RUN echo "Current directory before build" && pwd && ls -la
 RUN dotnet build "MenuManagement.csproj" -c Release
 
 # Publish stage
