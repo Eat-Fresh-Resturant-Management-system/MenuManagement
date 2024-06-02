@@ -1,5 +1,4 @@
-# Base stage
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+﻿FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
 EXPOSE 5136
 
@@ -10,24 +9,14 @@ ENV ASPNETCORE_URLS=http://+:5136
 RUN adduser -u 5678 --disabled-password --gecos "" appuser && chown -R appuser /app
 USER appuser
 
-# Build stage
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
-RUN pwd
-COPY ["./Repository/MenuManagement/MenuManagement.csproj", "./"]
-RUN dotnet restore "MenuManagement.csproj"
-COPY MenuManagement/ .
-WORKDIR "/src/"
-RUN dotnet build "MenuManagement.csproj" -c Release
-
-# Publish stage
-FROM build AS publish
-RUN dotnet publish "MenuManagement.csproj" -c Release -o /app/publish /p:UseAppHost=false
-
-# Final stage
+COPY ["MenuManagement/MenuManagement.csproj", "MenuManagement/"]
+RUN dotnet restore "MenuManagement/MenuManagement.csproj"
+COPY . .
+WORKDIR "/src/MenuManagement"
+RUN dotnet build "MenuManagement.csproj" -c Release -o /app/build
 FROM base AS final
 WORKDIR /app
-RUN echo "Current directory before copying from publish" && pwd && ls -la
 COPY --from=publish /app/publish .
-RUN echo "Current directory after copying from publish" && pwd && ls -la
 ENTRYPOINT ["dotnet", "MenuManagement.dll"]
