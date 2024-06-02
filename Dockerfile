@@ -10,7 +10,9 @@ RUN adduser -u 5678 --disabled-password --gecos "" appuser && chown -R appuser /
 USER appuser
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+RUN echo "Current directory before src" && pwd && ls -la
 WORKDIR /src
+RUN echo "Current directory after" && pwd && ls -la
 COPY ["/eatfresh.menumanagement/MenuManagement/MenuManagement.csproj", "./"]
 RUN dotnet restore "MenuManagement.csproj"
 COPY MenuManagement/ .
