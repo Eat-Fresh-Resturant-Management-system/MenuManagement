@@ -24,7 +24,7 @@ namespace MenuManagement.RabbitMQS
             var factory = new ConnectionFactory
             {
                 //Uri = new Uri("amqp://guest:guest@rabbitmq:5672/"),
-                Uri = new Uri("amqp://guest:guest@rabbitmq-service:5672"),
+                Uri = new Uri("amqp://guest:guest@rabbitmq.rabbitmq.svc.cluster.local:5672"),
                 DispatchConsumersAsync = true,
             };
 
@@ -36,7 +36,7 @@ namespace MenuManagement.RabbitMQS
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            await _rabbitMQ.ResTable(_channel, "Table.Booking", stoppingToken);
+            await _rabbitMQ.ResTable(_channel, "table_booking_queue", stoppingToken);
         }
 
         public override Task StopAsync(CancellationToken cancellationToken)

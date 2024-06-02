@@ -35,7 +35,7 @@ namespace MenuManagement.RabbitMQS
 
                 channel.QueueBind(queue: queueName,
                         exchange: "table_booking_exchange",
-                        routingKey: "Table.Booking");
+                        routingKey: "table_booking_queue");
 
                 var con = new AsyncEventingBasicConsumer(channel);
                 con.Received += async (model, ea) =>
@@ -45,13 +45,13 @@ namespace MenuManagement.RabbitMQS
                         var body = ea.Body.ToArray();
                         var message = Encoding.UTF8.GetString(body);
                         var routingKey = ea.RoutingKey;
-                        string[] messageparts = message.Split('-');
+                      //  string[] messageparts = message.Split('-');
 
                         // Log modtaget besked
                         Console.WriteLine($"Received message: {message}");
                         using (var scope = _serviceScopeFactory.CreateScope())
                         {
-                            var dbContext = scope.ServiceProvider.GetRequiredService<MenuDbContext>();
+                          /*  var dbContext = scope.ServiceProvider.GetRequiredService<MenuDbContext>();
                             // Use dbContext here
 
 
@@ -81,7 +81,7 @@ namespace MenuManagement.RabbitMQS
                             else
                             {
                                 Console.WriteLine($"Invalid ID format: {messageparts[0]}");
-                            }
+                            }*/
                         }
                     }
                     catch (Exception ex)
