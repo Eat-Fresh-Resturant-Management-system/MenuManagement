@@ -82,20 +82,20 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-using (var scope = app.Services.CreateScope())
-{
-    var services = scope.ServiceProvider;
-    var context = services.GetRequiredService<MenuDbContext>();
-    if (context != null)
-    {
-        SeedData.Seed(context);
+// using (var scope = app.Services.CreateScope())
+// {
+//     var services = scope.ServiceProvider;
+//     var context = services.GetRequiredService<MenuDbContext>();
+//     if (context != null)
+//     {
+//         SeedData.Seed(context);
 
-    }
-    else
-    {
-        throw new Exception("Cant reach StudyHealthContextDB");
-    }
+//     }
+//     else
+//     {
+//         throw new Exception("Cant reach StudyHealthContextDB");
+//     }
 
-}
+// }
 
 app.Run();
